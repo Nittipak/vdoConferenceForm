@@ -14,5 +14,10 @@
         "postcss-import": "^15.1.0",
         "tailwindcss": "^3.3.3",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@vitejs/plugin-vue": "^4.4.0",
+        "admin-lte": "3.2",
+        "vue-router": "^4.2.5"
     }
 }

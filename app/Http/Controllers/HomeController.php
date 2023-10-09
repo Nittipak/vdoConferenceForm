@@ -9,12 +9,13 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $role=Auth::user()->role;
+            return view('admin.layouts.app');
+        // $role=Auth::user()->role;
     
-        if($role=='1'){
-            return view('admin.dashboard');
-        }else{
-            return view('dashboard');
-        }
+        // if($role=='1'){
+        //     return view('admin.layouts.app');
+        // }else{
+        //     return view('dashboard');
+        // }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('redirects','App\Http\Controller\HomeController@index');
+//admin use prefix 'admin' and fix route that have /admin
+Route::get('{redirects}',HomeController::class)->where('redirects','(.*)');

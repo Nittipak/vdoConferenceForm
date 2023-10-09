@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>User</title>
+    <title>AdminLTE 3 | Starter</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -176,31 +176,38 @@
                     </div>
                 </div> --}}
 
-                {{-- เปลี่ยนเป็น navbar --}}
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                         <li class="nav-item">
-                            <router-link to="/home" active-class="active" class="nav-link">
-                                <i class="nav-icon fas fa-house"></i>
+                            <router-link to="/admin/dashboard" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-database"></i>
                                 <p>
-                                    Home
+                                    Dashboard
                                 </p>
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/profile" active-class="active" class="nav-link">
+                            <router-link to="/admin/video_conference_requests_list" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    รายการคำขอ
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/users_list" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    All Users
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/profile" active-class="active" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Profile
-                                </p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/form" active-class="active" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard"></i>
-                                <p>
-                                    Video Conference Form
                                 </p>
                             </router-link>
                         </li>
@@ -215,6 +222,14 @@
                             </form>
                         </li>
                         
+                        <li class="nav-item">
+                            <a href="/admin/form" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard"></i>
+                                <p>
+                                    Video Conference Form
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
