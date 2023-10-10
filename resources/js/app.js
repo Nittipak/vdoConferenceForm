@@ -7,6 +7,18 @@ import {createApp} from 'vue/dist/vue.esm-bundler.js';
 import { createRouter, createWebHistory } from 'vue-router';
 import Routes from './routes.js';
 
+// Vuetify
+import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+    components,
+    directives
+  })
+
 const app = createApp({});
 
 const router = createRouter({
@@ -15,5 +27,6 @@ const router = createRouter({
 });
 
 app.use(router);
+app.use(vuetify);
 
 app.mount('#app');
