@@ -28,7 +28,7 @@ onMounted(() => {
                     <ol class="breadcrumb float-sm-right">
                         <!-- home == calendar page -->
                         <li class="breadcrumb-item"><a href="#">Home</a></li> 
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Users</li>
                     </ol>
                 </div>
             </div>
@@ -37,6 +37,10 @@ onMounted(() => {
 
     <div class="content">
         <div class="contaier-fluid">
+            <button type="button" class="my-5 btn btn-primary" data-toggle="modal" data-target="#addUserForm">
+                <i class="fa fa-plus-circle mr-1"></i>
+                Add New User
+            </button>
             <div class="card m-8">
                 <div class="card-body backdrop-blur-sm bg-white/30"> 
                     <div class="table-responsive">
@@ -65,4 +69,45 @@ onMounted(() => {
             </div>
         </div>
     </div>
+
+    <!-- add new user card -->
+    <div class="modal fade" id="addUserForm" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">
+                    Add New User
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                        placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="nameHelp"
+                        placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" aria-describedby="nameHelp"
+                        placeholder="Enter password">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </template>
