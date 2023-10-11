@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+//admin use prefix 'admin' and fix route that have /admin
+Route::get('/api/users', [UserController::class, 'index']);
+Route::post('/api/users', [UserController::class, 'store']);
+Route::patch('/api/users/{user}/change-role', [UserController::class, 'changeRole']);
+Route::put('/api/users/{user}', [UserController::class, 'update']);
+Route::delete('/api/users/{user}', [UserController::class, 'destory']);
+Route::delete('/api/users', [UserController::class, 'bulkDelete']);
+
+
+
+Route::get('{redirects}',HomeController::class)->where('redirects','(.*)');
+
 Route::get('/', function () {
     return view('welcome');
 });
-
-//admin use prefix 'admin' and fix route that have /admin
-Route::get('{redirects}',HomeController::class)->where('redirects','(.*)');
