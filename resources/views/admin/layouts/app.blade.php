@@ -213,7 +213,7 @@
                         </li>
                         <li class="nav-item">
                             <form class="nav-link">
-                                <a href="#" @click.prevent="logout">
+                                <a href="#">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>
                                         Logout
