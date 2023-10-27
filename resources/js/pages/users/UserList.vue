@@ -1,8 +1,9 @@
 <script setup>
 import axios from 'axios';
 import { ref,onMounted,reactive } from 'vue';
-import { Form,Field } from 'vee-validate';
+import { Form,Field} from 'vee-validate';
 import * as yup from 'yup';
+import { Combobox, ComboboxInput, ComboboxOptions, ComboboxOption } from '@headlessui/vue'
 
 
 const users = ref([]);
@@ -32,12 +33,17 @@ const editUserschema = yup.object({
 });
 
 
-const createUser = (values, {resetForm}) => {
+const createUser = (values, {resetForm, setErrors}) => {
     axios.post('/api/users',values)
     .then((response) => {
         users.value.unshift(response.data);
         $('#userFormModal').modal('hide');
         resetForm();
+        })
+        .catch((error) => {
+            if (error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            }
         })
 };
 
@@ -64,28 +70,28 @@ const editUser = (user) => {
     };
 };
 
-const updateUser = (values) => {
+const updateUser = (values, {setErrors}) => {
     axios.put('/api/users/' + formValues.value.id, values)
         .then((response) => {
             const index = users.value.findIndex(user => user.id === response.data.id);
             users.value[index] = response.data;
             $('#userFormModal').modal('hide');
             // toastr.success('User updated successfully!');
-        }).catch((error) => {
-            // setErrors(error.response.data.errors);
-            console.log(error);
-        }).finally(()=>{
-            form.value.resetForm();
-        });
-}
+        })        .catch((error) => {
+            if (error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            }
+        })
+} 
 
-const handleSubmit = (values) => {
+const handleSubmit = (values, actions) => {
     if (editing.value) {
-        updateUser(values);
+        updateUser(values, actions);
     } else {
-        createUser(values);
+        createUser(values, actions);
     }
 }
+
 
 onMounted(() => {
     getUsers();

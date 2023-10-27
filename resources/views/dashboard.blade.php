@@ -197,7 +197,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/form" active-class="active" class="nav-link">
+                            <router-link to="/video_conference_form" active-class="active" class="nav-link">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>
                                     Video Conference Form
@@ -300,7 +300,7 @@
         </div>
 
 
-        <aside class="control-sidebar control-sidebar-dark">
+        {{-- <aside class="control-sidebar control-sidebar-dark">
 
             <div class="p-3">
                 <h5>Title</h5>
@@ -316,7 +316,7 @@
             </div>
 
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+        </footer> --}}
     </div>
 </body>
 

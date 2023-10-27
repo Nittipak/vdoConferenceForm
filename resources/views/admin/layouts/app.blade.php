@@ -18,12 +18,16 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                <li class="nav-item">
+                    <a href="/admin/video_conference_form" active-class="active" class="nav-link">
+                        <p>
+                            Video Conference Form
+                        </p>
+                    </a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li>
+                </li> --}}
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -150,8 +154,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
             <a href="index3.html" class="brand-link">
-                <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class=" brand-text font-weight-medium">Admin Panel</span>
             </a>
 
             <div class="sidebar">
@@ -222,14 +225,14 @@
                             </form>
                         </li>
                         
-                        <li class="nav-item">
-                            <a href="/admin/form" active-class="active" class="nav-link">
+                        {{-- <li class="nav-item">
+                            <a href="/admin/video_conference_form" active-class="active" class="nav-link">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>
                                     Video Conference Form
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
 
@@ -314,7 +317,7 @@
 
         </div>
 
-
+{{-- 
         <aside class="control-sidebar control-sidebar-dark">
 
             <div class="p-3">
@@ -331,7 +334,7 @@
             </div>
 
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+        </footer> --}}
     </div>
 </body>
 
