@@ -19,6 +19,8 @@ const getUsers = (page = 1) => {
     axios.get(`/api/users?page=${page}`)
     .then((response)=>{
         users.value = response.data;
+        selectedUsers.value = [];
+        selectAll.value = false;
     })
 }
 

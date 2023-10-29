@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\FormController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,13 @@ Route::put('/api/users/{user}', [UserController::class, 'update']);
 Route::delete('/api/users/{user}', [UserController::class, 'destroy']);
 Route::delete('/api/users', [UserController::class, 'bulkDelete']);
 
+
+Route::get('/api/form-status', [FormStatusController::class, 'getStatusWithCount']);
+Route::get('/api/forms', [FormController::class, 'index']);
+Route::post('/api/forms/create', [FormController::class, 'store']);
+Route::get('/api/forms/{form}/edit', [FormController::class, 'edit']);
+Route::put('/api/forms/{form}/edit', [FormController::class, 'update']);
+Route::delete('/api/forms/{form}', [FormController::class, 'destroy']);
 
 
 Route::get('{redirects}',HomeController::class)->where('redirects','(.*)');

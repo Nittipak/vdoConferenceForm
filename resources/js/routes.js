@@ -1,11 +1,11 @@
 import AdminDashboard from './components/admin/AdminDashboard.vue';
-import VideoConferenceRequestsList from './pages/videoconference/VideoConferenceRequestsList.vue';
+import FormeRequestsList from './pages/videoconference/FormRequestsList.vue';
 import UsersList from './pages/users/UserList.vue';
 
 import Profile from './pages/profile/UpdateProfile.vue';
 
 import Home from './components/Dashboard.vue'; //แก้ชื่อไฟล์?
-import VideoConferenceForm from './pages/videoconference/VideoConferenceForm.vue';
+import Form from './pages/videoconference/Form.vue';
 
 
 
@@ -13,7 +13,7 @@ export default [
 
     //admin
     {
-        path: '/admin//home', //user dashboard 
+        path: '/admin/home', //user dashboard 
         name: 'admin.home',
         component: Home,
     },    
@@ -23,9 +23,9 @@ export default [
         component: AdminDashboard,
     },
     {
-        path: '/admin/video_conference_requests_list',
-        name: 'admin.video_conference_requests_list',
-        component: VideoConferenceRequestsList,
+        path: '/admin/forms_list',
+        name: 'admin.forms_list',
+        component: FormeRequestsList,
     },
     {
         path: '/admin/users_list',
@@ -56,6 +56,6 @@ export default [
     {
         path: '/admin/video_conference_form',
         name: 'admin.video_conference_form',
-        component: VideoConferenceForm,
+        component: Form,
     }
 ]
