@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Enums\RoleType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -52,4 +56,19 @@ class User extends Authenticatable
     {
         return $this->created_at->format(config('app.date_format'));
     }
+
+    public function role(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => RoleType::from($value)->name,
+        );
+    }
+
+    public function avatar(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => asset(Storage::url($value) ?? 'noimage.png'),
+        );
+    }
+
 }
