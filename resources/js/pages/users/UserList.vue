@@ -1,20 +1,22 @@
 <script setup>
 import axios from 'axios';
-import { ref,onMounted,reactive } from 'vue';
+import { ref,onMounted,reactive,watch } from 'vue';
 import { Form,Field} from 'vee-validate';
 import * as yup from 'yup';
 import {useToastr} from '../../toastr.js';
 import UserListItem from './UserListItem.vue';
+import { debounce } from 'lodash';
+import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 
 const toastr = useToastr();
-const users = ref([]);
+const users = ref({'data': []});
 const editing = ref(false);
 const formValues = ref();
 const form = ref(null);
 const userIdBeingDeleted = ref(null);
 
-const getUsers = () => {
-    axios.get('/api/users')
+const getUsers = (page = 1) => {
+    axios.get(`/api/users?page=${page}`)
     .then((response)=>{
         users.value = response.data;
     })
@@ -38,7 +40,7 @@ const editUserschema = yup.object({
 const createUser = (values, {resetForm, setErrors}) => {
     axios.post('/api/users',values)
     .then((response) => {
-        users.value.unshift(response.data);
+        users.value.data.unshift(response.data);
         $('#userFormModal').modal('hide');
         resetForm();
         toastr.success('User created successfully!');
@@ -52,12 +54,6 @@ const createUser = (values, {resetForm, setErrors}) => {
 
 const addUser = () => {
     editing.value = false;
-    form.value.resetForm();
-    formValues.value = {
-        name: '',
-        email: '',
-        password: '',
-    };
     $('#userFormModal').modal('show');
 };
 
@@ -69,15 +65,14 @@ const editUser = (user) => {
         id: user.id,
         name: user.name,
         email: user.email
-
     };
 };
 
 const updateUser = (values, {setErrors}) => {
     axios.put('/api/users/' + formValues.value.id, values)
         .then((response) => {
-            const index = users.value.findIndex(user => user.id === response.data.id);
-            users.value[index] = response.data;
+            const index = users.value.data.findIndex(user => user.id === response.data.id);
+            users.value.data[index] = response.data;
             $('#userFormModal').modal('hide');
             toastr.success('User updated successfully!');
         })        .catch((error) => {
@@ -96,8 +91,8 @@ const handleSubmit = (values, actions) => {
 }
 
 
-const confirmUserDeletion = (user) => {
-    userIdBeingDeleted.value = user.id;
+const confirmUserDeletion = (id) => {
+    userIdBeingDeleted.value = id;
     $('#deleteUserModal').modal('show');
 };
 
@@ -106,9 +101,64 @@ const deleteUser = () => {
     .then(() => {
         $('#deleteUserModal').modal('hide');
         toastr.success('User delete successfully');
-        users.value= users.value.filter(user => user.id !== userIdBeingDeleted.value);
+        users.value.data= users.value.data.filter(user => user.id !== userIdBeingDeleted.value);
     });
 };
+
+
+const searchQuery = ref(null);
+const search = () => {
+    axios.get(`/api/users/search`,{
+        params:{
+            query: searchQuery.value
+        }
+    })
+    .then(response => {
+        users.value = response.data;
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+const bulkDelete = () => {
+    axios.delete('/api/users', {
+        data: {
+            ids: selectedUsers.value
+        }
+    })
+    .then(response => {
+        users.value.data = users.value.data.filter(user => !selectedUsers.value.includes(user.id));
+        selectedUsers.value = [];
+        selectAll.value = false;
+        toastr.success(response.data.message);
+    });
+};
+
+const selectedUsers = ref([]);
+const toggleSelection = (user) => {
+    const index = selectedUsers.value.indexOf(user.id);
+    if (index === -1) {
+        selectedUsers.value.push(user.id);
+    } else {
+        selectedUsers.value.splice(index, 1);
+    }
+    console.log(selectedUsers.value);
+};
+
+const selectAll = ref(false);
+const selectAllUsers = () => {
+    if (selectAll.value) {
+        selectedUsers.value = users.value.data.map(user => user.id);
+    } else {
+        selectedUsers.value = [];
+    }
+    console.log(selectedUsers.value);
+}
+
+watch(searchQuery, debounce(() => {
+    search();
+}, 300));
 
 onMounted(() => {
     getUsers();
@@ -136,16 +186,31 @@ onMounted(() => {
 
     <div class="content">
         <div class="contaier-fluid">
-            <button @click="addUser" type="button" class="my-5 btn btn-primary" >
-                <i class="fa fa-plus-circle mr-1"></i>
-                Add New User
-            </button>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <button @click="addUser" type="button" class="my-5 btn btn-primary" >
+                        <i class="fa fa-plus-circle mr-1"></i>
+                        Add New User
+                    </button>
+                    <div v-if="selectedUsers.length > 0">
+                        <button @click="bulkDelete" type="button" class="ml-2 my-5 btn btn-danger">
+                            <i class="fa fa-trash mr-1"></i>
+                            Delete Selected
+                        </button>
+                        <span class="ml-2">Selected {{ selectedUsers.length }} users</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <input type="text" v-model="searchQuery" class="form-control" placeholder="Search..." />
+                </div>
+            </div>
             <div class="card m-8">
                 <div class="card-body backdrop-blur-sm bg-white/30"> 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr>
+                                    <th><input type="checkbox" v-model="selectAll" @change="selectAllUsers" /></th>
                                     <th style="width: 10px">#</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -154,15 +219,27 @@ onMounted(() => {
                                     <th>Options</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <UserListItem v-for="(user,index) in users" 
+                            <tbody v-if="users.data.length > 0">
+                                <UserListItem v-for="(user,index) in users.data" 
                                 :key="user.id"
                                 :user="user"
-                                :index="index"/>
+                                :index="index"
+                                @edit-user="editUser"
+                                @confirm-user-deletion="confirmUserDeletion"
+                                @toggle-selection="toggleSelection"
+                                :select-all="selectAll"
+                                />
+                            </tbody>
+                            <tbody v-else>
+                                <tr>
+                                    <td colspan="6" class="text-center">No results found...</td>
+                                </tr>
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
+                <Bootstrap4Pagination :data="users" @pagination-change-page="getUsers" />
             </div>
         </div>
     </div>

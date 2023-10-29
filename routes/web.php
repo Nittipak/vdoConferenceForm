@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 //admin use prefix 'admin' and fix route that have /admin
 Route::get('/api/users', [UserController::class, 'index']);
 Route::post('/api/users', [UserController::class, 'store']);
+Route::get('/api/users/search', [UserController::class, 'search']);
 Route::patch('/api/users/{user}/change-role', [UserController::class, 'changeRole']);
 Route::put('/api/users/{user}', [UserController::class, 'update']);
 Route::delete('/api/users/{user}', [UserController::class, 'destroy']);

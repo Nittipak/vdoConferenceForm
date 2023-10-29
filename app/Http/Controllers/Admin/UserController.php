@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
 {
     public function index(){
-        $users = User::latest()->get();
+        $users = User::latest()->paginate(25);
 
         return $users;
     }
@@ -58,5 +59,20 @@ class UserController extends Controller
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+    public function search(){
+        $searchQuery = request('query');
+
+        $users = User::where('name','like',"%{$searchQuery}%")->get();
+
+        return response()->json($users);
+    }
+
+    public function bulkDelete()
+    {
+        User::whereIn('id', request('ids'))->delete();
+
+        return response()->json(['message' => 'Users deleted successfully!']);
     }
 }
