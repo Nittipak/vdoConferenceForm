@@ -21,6 +21,7 @@
         "@vitejs/plugin-vue": "^4.4.0",
         "admin-lte": "3.2",
         "jquery": "^3.7.1",
+        "moment": "^2.29.4",
         "vee-validate": "^4.11.8",
         "vue-router": "^4.2.5",
         "vuetify": "^3.3.20",
