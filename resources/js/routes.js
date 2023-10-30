@@ -6,7 +6,7 @@ import Profile from './pages/profile/UpdateProfile.vue';
 
 import Home from './components/Dashboard.vue'; //แก้ชื่อไฟล์?
 import Form from './pages/videoconference/Form.vue';
-
+// import Login from './pages/auth/Login.vue';
 
 
 export default [

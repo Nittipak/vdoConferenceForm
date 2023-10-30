@@ -31,6 +31,7 @@ return new class extends Migration
             //institution
 
             $table->tinyInteger('status');
+            $table->string('video_conference_link')->default('-');
             $table->timestamps();
         });
     }

@@ -16,7 +16,11 @@ const form = ref(null);
 const userIdBeingDeleted = ref(null);
 
 const getUsers = (page = 1) => {
-    axios.get(`/api/users?page=${page}`)
+    axios.get(`/api/users?page=${page}`,{
+        params:{
+            query: searchQuery.value
+        }
+    })
     .then((response)=>{
         users.value = response.data;
         selectedUsers.value = [];
@@ -109,19 +113,6 @@ const deleteUser = () => {
 
 
 const searchQuery = ref(null);
-const search = () => {
-    axios.get(`/api/users/search`,{
-        params:{
-            query: searchQuery.value
-        }
-    })
-    .then(response => {
-        users.value = response.data;
-    })
-    .catch(error => {
-        console.log(error);
-    })
-}
 
 const bulkDelete = () => {
     axios.delete('/api/users', {
@@ -159,7 +150,7 @@ const selectAllUsers = () => {
 }
 
 watch(searchQuery, debounce(() => {
-    search();
+    getUsers();
 }, 300));
 
 onMounted(() => {
@@ -234,7 +225,7 @@ onMounted(() => {
                             </tbody>
                             <tbody v-else>
                                 <tr>
-                                    <td colspan="6" class="text-center">No results found...</td>
+                                    <td colspan="6" class="text-center">ไม่พบการค้นหา...</td>
                                 </tr>
                             </tbody>
                         </table>

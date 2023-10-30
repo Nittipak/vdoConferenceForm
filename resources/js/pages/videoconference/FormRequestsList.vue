@@ -85,6 +85,7 @@ onMounted(() => {
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
+                                        <th scope="col">created_at</th>
                                         <th scope="col">ชื่อ-สกุล</th>
                                         <th scope="col">หัวข้อการประชุม</th>
                                         <th scope="col">ชื่อห้องประชุม</th>
@@ -93,12 +94,15 @@ onMounted(() => {
                                         <th scope="col">Notebook</th>
                                         <th scope="col">Speaker</th>
                                         <th scope="col">สถานะการจัดการ</th>
+                                        <th scope="col">link</th>
+                                        <th scope="col">options</th>
                                         <!-- <th scope="col">จัดการ</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(form,index) in forms.data" :key="form.id">
                                         <td>{{index + 1}}</td>
+                                        <td>{{form.created_at}}</td>
                                         <td>{{form.contact_name}}</td>
                                         <td>{{form.meeting_topic}}</td>
                                         <td>{{form.meeting_room_name}}</td>
@@ -109,6 +113,18 @@ onMounted(() => {
                                         <td>
                                             <span class="badge" :class="`badge-${form.status.color}`">{{
                                                 form.status.name }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="#" @click.prevent="">
+                                                <i class="fa fa-copy">
+                                                </i>
+                                            </a>
+                                            {{form.video_conference_link}}
+                                        </td>
+                                        <td>
+                                            <a href="#" @click.prevent=""><i class="fa fa-eye"></i></a>
+                                            <a href="#" @click.prevent=""><i class="fa fa-edit ml-2"></i></a>
+                                            <a href="#" @click.prevent=""><i class="fa fa-trash text-danger ml-2"></i></a>
                                         </td>
                                         <!-- <td>
                                             <a href="">

@@ -19,6 +19,7 @@ class FormController extends Controller
             ->paginate()
             ->through(fn ($form) => [
                 'id' => $form->id,
+                'created_at' => $form->created_at->format(config('app.date_format')),
                 'contact_name' => $form->contact_name,
                 'meeting_topic' => $form->meeting_topic,
                 'meeting_room_name' => $form->meeting_room_name,
@@ -26,6 +27,7 @@ class FormController extends Controller
                 'meeting_time' => $form->meeting_time,
                 'notebook' => $form->notebook,
                 'speaker' => $form->speaker,
+                'video_conference_link' =>$form->video_conference_link,
                 'status' => [
                     'name' => $form->status->name,
                     'color' => $form->status->color(),
@@ -66,6 +68,7 @@ class FormController extends Controller
             'contact_number' => $validated['contact_number'],
             'institution' => $validated['institution'],
             'เลขที่หนังสือ' => $validated['เลขที่หนังสือ'],
+            'video_conference_link' => ['video_conference_link'],
             'status' => FormStatus::INPROCESS,
         ]);
 
@@ -91,7 +94,8 @@ class FormController extends Controller
             'contact_name' => 'required',
             'contact_number' => 'required',
             'institution' => 'required',
-            'เลขที่หนังสือ' => 'sometimes|max:8',
+            'เลขที่หนังสือ' => 'sometimes',
+            'video_conference_link' =>'sometimes'
         ], [
             'user_id.required' => 'The user name field is required.',
         ]);
