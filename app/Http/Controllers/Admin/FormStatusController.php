@@ -20,5 +20,6 @@ class FormStatusController extends Controller
                 'color' => FormStatus::from($status->value)->color(),
             ];
         });
+
     }
 }
