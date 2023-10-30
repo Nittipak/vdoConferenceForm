@@ -24,18 +24,20 @@ class FormController extends Controller
                 'meeting_room_name' => $form->meeting_room_name,
                 'meeting_date' => $form->meeting_date,
                 'meeting_time' => $form->meeting_time,
+                'notebook' => $form->notebook,
+                'speaker' => $form->speaker,
                 'status' => [
                     'name' => $form->status->name,
                     'color' => $form->status->color(),
                 ],
-                'users' => $form->user,
+                'user_id' => $form->user_id,
             ]);
     }
 
     public function store()
     {
         $validated = request()->validate([
-            'users_id' => 'required',
+            'user_id' => 'required',
             'meeting_date' => 'required',
             'meeting_time' => 'required',
             'meeting_topic' => 'required',
@@ -44,15 +46,15 @@ class FormController extends Controller
             'speaker' => 'required',
             'contact_email' => 'required',
             'contact_name' => 'required',
-            'contct_number' => 'required|max:10',
+            'contact_number' => 'sometimes',
             'institution' => 'required',
-            'เลขที่หนังสือ' => 'sometimes|max:8',
+            'เลขที่หนังสือ' => 'sometimes',
         ], [
-            'users_id.required' => 'The user name field is required.',
+            'user_id.required' => 'The user name field is required.',
         ]);
 
         Form::create([
-            'users_id' => $validated['users_id'],
+            'user_id' => $validated['user_id'],
             'meeting_topic' => $validated['meeting_topic'],
             'meeting_room_name' => $validated['meeting_room_name'],
             'meeting_time' => $validated['meeting_time'],
@@ -61,7 +63,7 @@ class FormController extends Controller
             'speaker' => $validated['speaker'],
             'contact_email' => $validated['contact_email'],
             'contact_name' => $validated['contact_name'],
-            'contct_number' => $validated['contct_number'],
+            'contact_number' => $validated['contact_number'],
             'institution' => $validated['institution'],
             'เลขที่หนังสือ' => $validated['เลขที่หนังสือ'],
             'status' => FormStatus::INPROCESS,
@@ -78,7 +80,7 @@ class FormController extends Controller
     public function update(Form $form)
     {
         $validated = request()->validate([
-            'users_id' => 'required',
+            'user_id' => 'required',
             'meeting_date' => 'required',
             'meeting_time' => 'required',
             'meeting_topic' => 'required',
@@ -87,11 +89,11 @@ class FormController extends Controller
             'speaker' => 'required',
             'contact_email' => 'required',
             'contact_name' => 'required',
-            'contct_number' => 'required',
+            'contact_number' => 'required',
             'institution' => 'required',
             'เลขที่หนังสือ' => 'sometimes|max:8',
         ], [
-            'users_id.required' => 'The user name field is required.',
+            'user_id.required' => 'The user name field is required.',
         ]);
 
         $form->update($validated);

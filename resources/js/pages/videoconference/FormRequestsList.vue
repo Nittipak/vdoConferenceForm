@@ -90,6 +90,8 @@ onMounted(() => {
                                         <th scope="col">ชื่อห้องประชุม</th>
                                         <th scope="col">วันที่ประชุม</th>
                                         <th scope="col">เวลาการประชุม</th>
+                                        <th scope="col">Notebook</th>
+                                        <th scope="col">Speaker</th>
                                         <th scope="col">สถานะการจัดการ</th>
                                         <!-- <th scope="col">จัดการ</th> -->
                                     </tr>
@@ -102,6 +104,8 @@ onMounted(() => {
                                         <td>{{form.meeting_room_name}}</td>
                                         <td>{{form.meeting_date}}</td>
                                         <td>{{form.meeting_time}}</td>
+                                        <td>{{form.notebook}}</td>
+                                        <td>{{form.speaker}}</td>
                                         <td>
                                             <span class="badge" :class="`badge-${form.status.color}`">{{
                                                 form.status.name }}</span>

@@ -54,8 +54,8 @@ export default [
     },
     // //แก้ admin->usr
     {
-        path: '/admin/video_conference_form',
-        name: 'admin.video_conference_form',
+        path: '/form/create',
+        name: 'form.create',
         component: Form,
     }
 ]

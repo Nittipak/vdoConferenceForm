@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+
 class Form extends Model
 {
     use HasFactory;
@@ -18,7 +19,7 @@ class Form extends Model
     ];
 
     protected $fillable = [
-        'users_id',
+        'user_id',
         'meeting_date',
         'meeting_time',
         'meeting_topic',

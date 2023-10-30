@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->date('meeting_date');
             $table->time('meeting_time');
             $table->string('meeting_topic',1000);
             $table->string('meeting_room_name',1000);
             //checkboxเก็บจำนวน
-            $table->boolean('notebook')->default(false);
-            $table->boolean('speaker')->default(false);
+            $table->string('notebook')->default(false);
+            $table->string('speaker')->default(false);
 
             $table->string('contact_email');
             $table->string('contact_name');

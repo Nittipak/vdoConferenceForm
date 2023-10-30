@@ -19,7 +19,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/video_conference_form" active-class="active" class="nav-link">
+                    <a href="/form/create" active-class="active" class="nav-link">
                         <p>
                             Video Conference Form
                         </p>
