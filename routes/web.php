@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\FormController;
 use App\Http\Controllers\Admin\FormStatusController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminDashboardStatController;
+use App\Http\Controllers\DashboardStatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::middleware('auth')->group(function () {
 //admin use prefix 'admin' and fix route that have /admin
 Route::get('/api/users', [UserController::class, 'index']);
 Route::post('/api/users', [UserController::class, 'store']);
@@ -35,7 +38,13 @@ Route::put('/api/forms/{form}/edit', [FormController::class, 'update']);
 Route::delete('/api/forms/{form}', [FormController::class, 'destroy']);
 
 
-Route::get('{redirects}',HomeController::class)->where('redirects','(.*)');
+Route::get('/api/profile', [ProfileController::class, 'index']);
+Route::put('/api/profile', [ProfileController::class, 'update']);
+Route::post('/api/change-user-password', [ProfileController::class, 'changePassword']);
+
+});
+
+Route::get('{redirects}',HomeController::class)->where('redirects','(.*)')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');

@@ -34,14 +34,6 @@ const createUserschema = yup.object({
     password: yup.string().required().min(8),
 });
 
-const editUserschema = yup.object({
-    name: yup.string().required(),
-    email: yup.string().email().required(),
-    password: yup.string().when((password, schema) => {
-        return password ? schema.required().min(8) : schema;
-    }),
-});
-
 
 const createUser = (values, {resetForm, setErrors}) => {
     axios.post('/api/users',values)
@@ -62,6 +54,15 @@ const addUser = () => {
     editing.value = false;
     $('#userFormModal').modal('show');
 };
+
+const editUserschema = yup.object({
+    name: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string().when((password, schema) => {
+        return password ? schema.required().min(8) : schema;
+    }),
+});
+
 
 const editUser = (user) => {
     editing.value = true;
@@ -112,7 +113,6 @@ const deleteUser = () => {
 };
 
 
-const searchQuery = ref(null);
 
 const bulkDelete = () => {
     axios.delete('/api/users', {
@@ -148,6 +148,7 @@ const selectAllUsers = () => {
     }
     console.log(selectedUsers.value);
 }
+const searchQuery = ref(null);
 
 watch(searchQuery, debounce(() => {
     getUsers();

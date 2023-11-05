@@ -87,7 +87,6 @@ onMounted(() => {
                                         <th scope="col">#</th>
                                         <th scope="col">created_at</th>
                                         <th scope="col">ชื่อ-สกุล</th>
-                                        <th scope="col">หัวข้อการประชุม</th>
                                         <th scope="col">ชื่อห้องประชุม</th>
                                         <th scope="col">วันที่ประชุม</th>
                                         <th scope="col">เวลาการประชุม</th>
@@ -104,7 +103,6 @@ onMounted(() => {
                                         <td>{{index + 1}}</td>
                                         <td>{{form.created_at}}</td>
                                         <td>{{form.contact_name}}</td>
-                                        <td>{{form.meeting_topic}}</td>
                                         <td>{{form.meeting_room_name}}</td>
                                         <td>{{form.meeting_date}}</td>
                                         <td>{{form.meeting_time}}</td>
