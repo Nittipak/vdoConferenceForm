@@ -8,6 +8,8 @@ import Home from './components/Dashboard.vue'; //แก้ชื่อไฟล�
 import Form from './pages/videoconference/Form.vue';
 import Login from './pages/auth/Login.vue';
 
+import { useAuthUserStore } from './stores/AuthUserStore';
+
 
 export default [
     {
@@ -16,12 +18,7 @@ export default [
         component: Login,
     },
 
-    //admin
-    {
-        path: '/admin/home', //user dashboard 
-        name: 'admin.home',
-        component: Home,
-    },    
+    //admin   
     {
         path: '/admin/dashboard',
         name: 'admin.dashboard',
@@ -42,8 +39,6 @@ export default [
         name: 'admin.profile',
         component: Profile,
     },
-    
-    
     
     //user
     

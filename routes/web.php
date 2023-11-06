@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function () {
-//admin use prefix 'admin' and fix route that have /admin
+
 Route::get('/api/users', [UserController::class, 'index']);
 Route::post('/api/users', [UserController::class, 'store']);
 Route::patch('/api/users/{user}/change-role', [UserController::class, 'changeRole']);

@@ -19,10 +19,9 @@ const handleSubmit = () => {
     errorMessage.value = '';
     axios.post('/login', form)
         .then(() => {
-        // router.push({
-        //   name: "admin.dashboard",
-        // });
-        router.push('/admin/dashboard');
+        router.push({
+          name: "admin.dashboard",
+        });
         })
         .catch((error) => {
             errorMessage.value = error.response.data.message;

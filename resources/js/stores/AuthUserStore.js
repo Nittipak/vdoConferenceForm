@@ -16,5 +16,15 @@ export const useAuthUserStore = defineStore('AuthUserStore', () => {
             });
     };
 
-    return { user, getAuthUser };
+    // const isAdmin = async () =>{
+    //     await axios.get('/api/profile')
+    //         .then((response)=>{
+    //             user.value.role == 1;
+    //             return true;
+    //         });
+    // }
+
+    
+    return { user, getAuthUser};
+
 });

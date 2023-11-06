@@ -65,11 +65,12 @@ class User extends Authenticatable
         );
     }
 
-    public function avatar(): Attribute
+    public function isAdmin()
     {
-        return Attribute::make(
-            get: fn ($value) => asset(Storage::url($value) ?? 'noimage.png'),
-        );
+        if ($this->role == '1') {
+            return true;
+        }
+        return false;
     }
 
 }

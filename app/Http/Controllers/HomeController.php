@@ -11,10 +11,10 @@ class HomeController extends Controller
     {
         $role=Auth::user()->role;
     
-        if($role=='1'){
+        if($role==='ADMIN'){
             return view('admin.layouts.app');
         }else{
-            return view('dashboard');
+            return view('home');
         }
     }
 }
